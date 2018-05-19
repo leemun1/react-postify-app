@@ -6,8 +6,7 @@ import Yup from 'yup';
 const rawForm = ({
   values,
   errors,
-  touched,
-  isSubmitting
+  touched
 }) => (
   <Form>
     <div>
@@ -22,27 +21,22 @@ const rawForm = ({
       <option value="draft">Draft</option>
       <option value="publish">Publish</option>
     </Field>
-    <button disabled={isSubmitting}>Submit</button>
+    <button>Submit</button>
   </Form>
 )
 
-const PostForm = withFormik({
-  mapPropsToValues({ title, body, status }) {
+const FormikPostForm = withFormik({
+  mapPropsToValues({ title, body, status, createdAt }) {
     return {
       title: title || '',
       body: body || '',
       status: status || 'draft',
-      createdAt: moment()
+      createdAt: moment().valueOf()
     };
   },
-  validationSchema: Yup.object().shape({
-    title: Yup.string().min(1).required(),
-    body: Yup.string().min(1).required()
-  }),
-  handleSubmit(values, { props, resetForm, setSubmitting }) {
-    resetForm();
+  handleSubmit(values, { props }) {
     props.onSubmit(values);
   }
 })(rawForm);
 
-export default PostForm;
+export default FormikPostForm;

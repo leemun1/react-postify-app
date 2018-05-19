@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PostForm from './PostForm';
+import FormikPostForm from './FormikPostForm';
 import { startAddPost } from '../actions/posts';
 
 export class AddPostPage extends React.Component {
@@ -17,9 +17,7 @@ export class AddPostPage extends React.Component {
           </div>
         </div>
         <div className="content-container">
-          <PostForm
-            onSubmit={this.onSubmit}
-          />
+          <FormikPostForm onSubmit={this.onSubmit}/>
         </div>
       </div>
     );

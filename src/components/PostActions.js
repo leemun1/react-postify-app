@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-export const PostActions = (props) => {
+export const PostActions = () => {
 
   return (
     <div className="page-header">
@@ -15,8 +15,4 @@ export const PostActions = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-
-};
-
-export default connect(mapStateToProps)(PostActions);
+export default connect()(PostActions);
