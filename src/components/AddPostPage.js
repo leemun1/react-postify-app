@@ -13,7 +13,7 @@ export class AddPostPage extends React.Component {
       <div>
         <div className="page-header">
           <div className="content-container">
-            <h1 className="page-header__title">Write New Post</h1>
+            <h1 className="page-header__title">New Post</h1>
           </div>
         </div>
         <div className="content-container">

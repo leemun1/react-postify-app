@@ -1,42 +1,54 @@
 import React from 'react';
 import moment from 'moment';
 import { withFormik, Form, Field } from 'formik';
-import Yup from 'yup';
 
-const rawForm = ({
+const Yup = require('yup');
+
+const formikEnhancer = withFormik({
+  mapPropsToValues: ({ title, body, status }) => ({
+    title: title || '',
+    body: body || '',
+    status: status || 'draft',
+    createdAt: moment().valueOf()
+  }),
+  validationSchema: Yup.object().shape({
+    title: Yup.string()
+      .required('Title is a required field!'),
+    body: Yup.string()
+      .required('Content is a required field!')
+  }),
+  handleSubmit: (values, { props }) => {
+    props.onSubmit(values);
+  },
+  displayName: 'MyForm'
+});
+
+const MyForm = ({
   values,
   errors,
   touched
 }) => (
-  <Form>
+  <Form className="form">
+    {touched.title && errors.title && <p className="form__error">{errors.title}</p>}
+    <Field className="text-input" type="text" name="title" placeholder="Title" />
+    {touched.body && errors.body && <p>{errors.body}</p>}
+    <Field className="textarea" component="textarea" name="body" placeholder="Content" />
     <div>
-      { touched.title && errors.title && <p>{ errors.title }</p> }
-      <Field type="text" name="title" placeholder="Title" />
+      <Field className="select" component="select" name="status">
+        <option value="draft">Draft</option>
+        <option value="publish">Publish</option>
+      </Field>
     </div>
     <div>
-      { touched.body && errors.body && <p>{ errors.body }</p> }
-      <Field type="text" name="body" placeholder="Content" />
+      {
+        values.title ? (
+          <button className="button">Save</button>
+        ) : (
+          <button className="button">Add Post</button>
+        )
+      }
     </div>
-    <Field component="select" name="status">
-      <option value="draft">Draft</option>
-      <option value="publish">Publish</option>
-    </Field>
-    <button>Submit</button>
   </Form>
-)
+);
 
-const FormikPostForm = withFormik({
-  mapPropsToValues({ title, body, status, createdAt }) {
-    return {
-      title: title || '',
-      body: body || '',
-      status: status || 'draft',
-      createdAt: moment().valueOf()
-    };
-  },
-  handleSubmit(values, { props }) {
-    props.onSubmit(values);
-  }
-})(rawForm);
-
-export default FormikPostForm;
+export default formikEnhancer(MyForm);

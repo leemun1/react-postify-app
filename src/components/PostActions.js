@@ -7,6 +7,7 @@ export const PostActions = () => {
   return (
     <div className="page-header">
       <div className="content-container">
+        <h1 className="page-header__title">What's on your mind today?</h1>
         <div className="page-header__actions">
           <Link className="button" to="/create">Add Post</Link>
         </div>
