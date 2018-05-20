@@ -16,10 +16,12 @@
 }
 
 .button--link {
-  background: none;
-  border:none;
+  background: darken($off-white, 5%);
+  border: none;
+  border-radius: 3px;
+  color: $dark-grey;
   &:hover {
-    background: none;
+    background: darken($off-white, 10%);
   }
 }
 
